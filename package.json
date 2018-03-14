@@ -1,0 +1,32 @@
+{
+  "name": "docusign_eg01_oauth_jwt_authentication",
+  "version": "1.0.0",
+  "description": "DocuSign Example 01 Node: OAuth JWT Authentication",
+  "main": "service_integration.js",
+  "scripts": {
+    "debug": "node  --inspect-brk service_integration.js",
+    "start": "node service_integration.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Larry Kluger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/docusign/OAuth_JWT_recipes/issues"
+  },
+  "homepage": "https://github.com/docusign/OAuth_JWT_recipes#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.12.2",
+    "docusign-esign": "^3.2.2",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.3",
+    "node-ask": "^1.0.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  }
+}

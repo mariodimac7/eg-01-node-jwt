@@ -1,3 +1,7 @@
+# Configuration files
+ds_configuration.*
+ds_private_key.*
+
 # Logs
 logs
 *.log
@@ -56,4 +60,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
