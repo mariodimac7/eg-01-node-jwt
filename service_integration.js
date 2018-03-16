@@ -26,6 +26,29 @@ function main(){
 
     // set_account will also get the user's info and create a token
     ds_jwt_auth.set_account(ds_configuration.target_account_id)
+    .catch((e) => {
+      let {name, message} = e;
+      if (name === ds_jwt_auth.Error_JWT_get_token){
+        if (message === ds_jwt_auth.Error_consent_required) {
+          let permission_url = ds_api.getJWTUri(
+            ds_configuration.client_id,
+            ds_configuration.oauth_redirect_URI,
+            ds_configuration.aud);
+          console.log(`The client_id you're using (${ds_configuration.client_id}) does not
+have permission to impersonate the user. You have two choices:
+1) Use Organizational Administration to grant blanket impersonation permission to the client_id.
+2) Or use the following URL in a browser to log in as the user and individually grant permission.
+${permission_url}`)
+        } else if (message === ds_jwt_auth.Error_consent_required) {
+          console.log(`Error while authorizing via JWT: ${message}`)
+        } else {
+          console.log(`Error while authorizing via JWT: ${message}`)
+        }
+      }
+      e.end_chain = true; // we don't want any more processing
+      throw e
+    })
+    .catch (() => {}) // Final catch
     .then (() => {
       console.log('Fin!')
     })
