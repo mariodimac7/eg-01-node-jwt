@@ -23,6 +23,7 @@ function main(){
     ds_jwt_auth.set_debug(debug);
     ds_jwt_auth.set_ds_config(ds_configuration, __dirname);
     ds_jwt_auth.set_ds_api(ds_api);
+    ds_jwt_auth.add_promise_functions();
 
     // set_account will also get the user's info and create a token
     ds_jwt_auth.set_account(ds_configuration.target_account_id)
@@ -39,12 +40,10 @@ have permission to impersonate the user. You have two choices:
 1) Use Organizational Administration to grant blanket impersonation permission to the client_id.
 2) Or use the following URL in a browser to log in as the user and individually grant permission.
 ${permission_url}`)
-        } else if (message === ds_jwt_auth.Error_consent_required) {
-          console.log(`Error while authorizing via JWT: ${message}`)
         } else {
           console.log(`Error while authorizing via JWT: ${message}`)
         }
-      }
+      } // end of name === ds_jwt_auth.Error_JWT_get_token
       e.end_chain = true; // we don't want any more processing
       throw e
     })
