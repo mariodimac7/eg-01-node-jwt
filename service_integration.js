@@ -1,12 +1,8 @@
 #!/usr/bin/env node
 
 const
-    _ = require('lodash')
-  , program = require('commander')
-  , colors = require('colors')
-  , nodeAsk = require('node-ask')
-  , moment = require('moment')
-  , docusign = require('docusign-esign')
+    docusign = require('docusign-esign')
+  , ds_js = require('./lib/ds_js.js')
   , ds_jwt_auth = require('./lib/ds_jwt_auth.js')
   , ds_configuration = require('./ds_configuration.js').config
   ;
@@ -20,13 +16,13 @@ function main(){
         , debug = true
         ;
     // initialization
-    ds_jwt_auth.set_debug(debug);
-    ds_jwt_auth.set_ds_config(ds_configuration, __dirname);
-    ds_jwt_auth.set_ds_api(ds_api);
+    ds_js.set_debug(debug);
+    ds_js.set_ds_config(ds_configuration, __dirname);
+    ds_js.set_ds_api(ds_api);
     ds_jwt_auth.add_promise_functions();
 
     // set_account will also get the user's info and create a token
-    ds_jwt_auth.set_account(ds_configuration.target_account_id)
+    ds_jwt_auth.check_token()
     .catch((e) => {
       let {name, message} = e;
       if (name === ds_jwt_auth.Error_JWT_get_token){
@@ -47,6 +43,12 @@ ${permission_url}`)
       e.end_chain = true; // we don't want any more processing
       throw e
     })
+
+    .then(() =>
+      ds_js.set_account(ds_configuration.target_account_id)
+    )
+
+
     .catch (() => {}) // Final catch
     .then (() => {
       console.log('Fin!')
@@ -55,42 +57,8 @@ ${permission_url}`)
 
 function next() {
 
-    // Ask user who the envelope should be sent to
-    console.log(`This app will send an example document to be signed. Who will be the signer?`);
-    let questions = [
-      { key: 'name',  msg: 'The signer\'s name: ' , fn: 'prompt' },
-      { key: 'email', msg: 'The signer\'s email: ', fn: 'prompt' },
-    ];
-    nodeAsk.ask(questions)
-    .then((answers) => {
-      to_name = answers.name;
-      to_email = answers.email;
-    })
-    .then(() => {
-
-      // create the JWT payload to get the user's token
-      let payload = {
-              "iss": CLIENT_ID,
-              "sub": USER_GUID,
-              "iat": new Date().getTime() / 1000,
-              "exp": new Date().getTime() / 1000 + 3600,
-              "aud": AUD,
-              "scope": SCOPES,
-          },
-      jwt_token = jwt.sign(payload, private_key, {algorithm: 'RS256'});
-
-      console.log(`Requesting the authentication token...`)
-      return rp.post(`${AUTHENTICATION_URL}/oauth/token`, {
-        json: true,
-        form: {
-            'grant_type': JWT_GRANT,
-            'assertion': jwt_token
-        },
-        followAllRedirects: true
-      })
-    })
     // See the catch method below which handles the permission_needed case
-    .then((result) => {
+  (function foo(result) {
       // Save the token for later use
       docusign_credentials = {token: result.access_token,
         expires: new Date().getTime() + (result.expires_in * 1000)};

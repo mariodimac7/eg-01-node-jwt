@@ -5,7 +5,11 @@
   "main": "service_integration.js",
   "scripts": {
     "debug": "node  --inspect-brk service_integration.js",
-    "start": "node service_integration.js"
+    "start": "node service_integration.js",
+    "test": "mocha"
+  },
+  "directories": {
+    "test": "test"
   },
   "repository": {
     "type": "git",
@@ -18,15 +22,15 @@
   },
   "homepage": "https://github.com/docusign/OAuth_JWT_recipes#readme",
   "dependencies": {
-    "colors": "^1.1.2",
-    "commander": "^2.12.2",
     "docusign-esign": "^3.2.2",
     "fs": "0.0.1-security",
-    "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.19.3",
-    "node-ask": "^1.0.1",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.4"
   }
 }
