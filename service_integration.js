@@ -19,10 +19,10 @@ function main(){
     ds_js.set_debug(debug);
     ds_js.set_ds_config(ds_configuration, __dirname);
     ds_js.set_ds_api(ds_api);
-    ds_jwt_auth.add_promise_functions();
+    ds_jwt_auth.init();
 
     // set_account will also get the user's info and create a token
-    ds_jwt_auth.check_token()
+    ds_js.set_account(ds_configuration.target_account_id)
     .catch((e) => {
       let {name, message} = e;
       if (name === ds_jwt_auth.Error_JWT_get_token){

@@ -44,15 +44,15 @@ describe ('ds_jwt_auth', function(){
     const ds_api = new docusign.ApiClient();
     ds_js.set_ds_config(ds_configuration, '.');
     ds_js.set_ds_api(ds_api);
-    ds_jwt_auth.add_promise_functions();
+    ds_jwt_auth.init();
   });
 
   ds_jwt_auth.clear_token();
   it('#clear_token should clear its token', function(){
-    let token = ds_jwt_auth.token;
+    let token = ds_jwt_auth.test.get_token();
   })
   it('#clear_token should clear its token_expiration', function(){
-    let t = ds_jwt_auth.token_expiration;
+    let t = ds_jwt_auth.test.get_token_expiration();
     t.should.equal(false);
   })
 
