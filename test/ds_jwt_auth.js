@@ -47,11 +47,12 @@ describe ('ds_jwt_auth', function(){
     ds_jwt_auth.init();
   });
 
-  ds_jwt_auth.clear_token();
   it('#clear_token should clear its token', function(){
+    ds_jwt_auth.clear_token();
     let token = ds_jwt_auth.test.get_token();
   })
   it('#clear_token should clear its token_expiration', function(){
+    ds_jwt_auth.clear_token();
     let t = ds_jwt_auth.test.get_token_expiration();
     t.should.equal(false);
   })
@@ -69,7 +70,7 @@ describe ('ds_jwt_auth', function(){
   })
 
 
-  it('#check_token should not work with bad client_id', async function(){
+  it('#check_token should throw error if bad client_id', async function(){
     let cloned_ds_configuration = _.clone(ds_configuration);
     cloned_ds_configuration.client_id = 'foo';
     ds_js.set_ds_config(cloned_ds_configuration, '.');

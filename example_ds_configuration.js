@@ -10,7 +10,9 @@ exports.config = {
                                // This is the user ('service account') Authorization
                                // that the JWT will represent.
   , target_account_id: false  // The account_id that will be used.
-                              // If false, then the user's default account will be used
+                              // If false, then the user's default account will be used.
+                              // If an account_id is provided then it must be the guid
+                              // version of the account number.
   , oauth_redirect_URI: 'https://www.docusign.com' // Must be set as a redirect URI in the
                               // DocuSign admin tool. It is ONLY used for individually granting
                               // permission to the client_id if organizational-level permissions

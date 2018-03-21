@@ -43,17 +43,22 @@ ${permission_url}`)
       e.end_chain = true; // we don't want any more processing
       throw e
     })
+    .then((account_info) => {
+      let {account_id, account_name, base_uri} = account_info;
+      log(`Account: ${account_name} [${account_id}]`)
+    })
+    .then(() => ds_js.set_account(ds_configuration.target_account_id))
 
-    .then(() =>
-      ds_js.set_account(ds_configuration.target_account_id)
-    )
 
 
-    .catch (() => {}) // Final catch
+    //.catch (() => {}) // Final catch
     .then (() => {
-      console.log('Fin!')
+      log('Fin!')
     })
   }
+
+function log(m){console.log(m)}
+
 
 function next() {
 
