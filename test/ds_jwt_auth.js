@@ -11,6 +11,7 @@ const chai = require('chai')
     , ds_js = require('../lib/ds_js.js')
     , path = require('path')
     , _ = require('lodash')
+    , moment = require('moment')
     ;
 
 const config_file = 'ds_configuration.js'
@@ -66,7 +67,10 @@ describe ('ds_jwt_auth', function(){
 
   it('#check_token should reuse the token', async function(){
    const result = await ds_jwt_auth.check_token();
-   expect(('need_token' in result) && !result.need_token).to.equal(true);
+   let t = result.need_token === false &&
+           result.token.length > 10 &&
+           result.token_expiration.isAfter(moment());
+   expect(t).to.equal(true);
   })
 
 

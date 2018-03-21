@@ -71,48 +71,4 @@ describe ('ds_js', function(){
   })
 
 
-
-
-
-
-
-  // ds_jwt_auth.clear_token();
-  // it('#clear_token should clear its token', function(){
-  //   let token = ds_jwt_auth.test.get_token();
-  // })
-  // it('#clear_token should clear its token_expiration', function(){
-  //   let t = ds_jwt_auth.test.get_token_expiration();
-  //   t.should.equal(false);
-  // })
-  //
-  // // See https://wietse.loves.engineering/testing-promises-with-mocha-90df8b7d2e35
-  // it('#check_token should fetch a token', async function(){
-  //   ds_jwt_auth.clear_token();
-  //   const result = await ds_jwt_auth.check_token();
-  //   expect(result.token_received && result.token.length > 15).to.equal(true);
-  //  })
-  //
-  // it('#check_token should reuse the token', async function(){
-  //  const result = await ds_jwt_auth.check_token();
-  //  expect(('need_token' in result) && !result.need_token).to.equal(true);
-  // })
-  //
-  //
-  // it('#check_token should not work with bad client_id', async function(){
-  //   let cloned_ds_configuration = _.clone(ds_configuration);
-  //   cloned_ds_configuration.client_id = 'foo';
-  //   ds_js.set_ds_config(cloned_ds_configuration, '.');
-  //   ds_jwt_auth.clear_token();
-  //   try {
-  //     const result = await ds_jwt_auth.check_token();
-  //     expect(false).to.equal(true); // we should never get here!
-  //   } catch(e) {
-  //     let {name, message} = e;
-  //     expect(   e.name === ds_jwt_auth.Error_JWT_get_token &&
-  //            e.message === ds_jwt_auth.Error_invalid_grant).to.equal(true);
-  //   }
-  // })
-
-
-
 })
