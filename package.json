@@ -21,6 +21,9 @@
     "url": "https://github.com/docusign/OAuth_JWT_recipes/issues"
   },
   "homepage": "https://github.com/docusign/OAuth_JWT_recipes#readme",
+  "engines": {
+    "node": ">=8.10"
+  },
   "dependencies": {
     "docusign-esign": "^3.2.2",
     "fs": "0.0.1-security",

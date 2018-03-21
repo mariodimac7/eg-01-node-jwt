@@ -17,6 +17,10 @@ exports.config = {
                               // DocuSign admin tool. It is ONLY used for individually granting
                               // permission to the client_id if organizational-level permissions
                               // are not used.
+  , signer_email: ''
+  , signer_name: ''
+  , cc_email: ''  // Can't be the same as the signer's email unless the account is set to enable this
+  , cc_name: ''
   , authentication_url: 'https://account-d.docusign.com' // account.docusign.com for production
   , aud: 'account-d.docusign.com' // or account.docusign.com for production
   , private_key_file: "./ds_private_key.txt" // relative to the script's home dir
