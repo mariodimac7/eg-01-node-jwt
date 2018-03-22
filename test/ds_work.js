@@ -45,10 +45,8 @@ describe ('ds_work', function(){
         console.log (`API problem: Status code ${e.response.status}, message body:
   ${JSON.stringify(body, null, 4)}`);
       }
-
-      if (! (('all_done' in e) && e.all_done === true)) {
-        throw e; // an unexpected error has occured
-      }
+      
+      throw e; // an unexpected error has occured
     }
   })
 
