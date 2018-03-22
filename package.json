@@ -2,10 +2,10 @@
   "name": "docusign_eg01_oauth_jwt_authentication",
   "version": "1.0.0",
   "description": "DocuSign Example 01 Node: OAuth JWT Authentication",
-  "main": "service_integration.js",
+  "main": "index.js",
   "scripts": {
-    "debug": "node  --inspect-brk service_integration.js",
-    "start": "node service_integration.js",
+    "debug": "node  --inspect-brk index.js",
+    "start": "node index.js",
     "test": "mocha"
   },
   "directories": {

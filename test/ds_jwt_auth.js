@@ -89,6 +89,12 @@ describe ('ds_jwt_auth', function(){
     }
   })
 
+  it('#check_token should fetch a token', async function(){
+    ds_jwt_auth.clear_token();
+    ds_js.set_ds_config(ds_configuration, '.');
+    const result = await ds_jwt_auth.check_token();
+    expect(result.token_received && result.token.length > 15).to.equal(true);
+   })
 
 
 })
