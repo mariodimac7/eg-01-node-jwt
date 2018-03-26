@@ -61,20 +61,23 @@ describe ('ds_jwt_auth', function(){
   // See https://wietse.loves.engineering/testing-promises-with-mocha-90df8b7d2e35
   it('#check_token should fetch a token', async function(){
     ds_jwt_auth.clear_token();
+    this.timeout(8000);
     const result = await ds_jwt_auth.check_token();
     expect(result.token_received && result.token.length > 15).to.equal(true);
    })
 
   it('#check_token should reuse the token', async function(){
-   const result = await ds_jwt_auth.check_token();
-   let t = result.need_token === false &&
+    this.timeout(8000);
+    const result = await ds_jwt_auth.check_token();
+    let t = result.need_token === false &&
            result.token.length > 10 &&
            result.token_expiration.isAfter(moment());
-   expect(t).to.equal(true);
+    expect(t).to.equal(true);
   })
 
 
   it('#check_token should throw error if bad client_id', async function(){
+    this.timeout(8000);
     let cloned_ds_configuration = _.clone(ds_configuration);
     cloned_ds_configuration.client_id = 'foo';
     ds_js.set_ds_config(cloned_ds_configuration, '.');
