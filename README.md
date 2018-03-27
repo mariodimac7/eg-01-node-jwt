@@ -1,6 +1,6 @@
 # Example 1: Node.JS Service Integration--Signature Request by email
 
-Repository: eg-01-node-jwt
+Repository: [eg-01-node-jwt](https://github.com/docusign/eg-01-node-jwt)
 
 <!--
 ## Articles and Screencasts
@@ -82,4 +82,4 @@ Submit support questions to [StackOverflow](https://stackoverflow.com). Use tag 
 Contributions via Pull Requests are appreciated.
 All contributions must use the MIT License.
 
-This repository uses the MIT license, see the LICENSE file
+This repository uses the MIT license, see the LICENSE file.

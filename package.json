@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/docusign/eg-01-node-jwt"
   },
   "author": "Larry Kluger",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/docusign/OAuth_JWT_recipes/issues"
+    "url": "https://github.com/docusign/eg-01-node-jwt/issues"
   },
-  "homepage": "https://github.com/docusign/OAuth_JWT_recipes#readme",
+  "homepage": "https://github.com/docusign/eg-01-node-jwt#readme",
   "engines": {
     "node": ">=8.10"
   },
