@@ -7,9 +7,9 @@ const chai = require('chai')
     , should = chai.should()
     , fs = require('fs')
     , docusign = require('docusign-esign')
-    , DS_JWT_Auth = require('../lib/ds_jwt_auth.js')
-    , ds_work = require('../lib/ds_work.js')
-    , ds_configuration = require('../ds_configuration.js').config
+    , DS_JWT_Auth = require('../lib/DS_JWT_Auth.js')
+    , DS_Work = require('../lib/DS_Work.js')
+    , ds_config = require('../ds_configuration.js').config
     , path = require('path')
     , _ = require('lodash')
     ;
@@ -19,18 +19,20 @@ const config_file = 'ds_configuration.js'
     , config_file_path = './'
     ;
 
-describe ('ds_work', function(){
+describe ('DS_Work', function(){
   it('#send_envelope_1 should work', async function(){
     this.timeout(30000); // 30 sec allows for the token to be acquired and the envelope to be created
-    const ds_api = new docusign.ApiClient();
-    ds_js.set_ds_config(ds_configuration, '.');
-    ds_js.set_ds_api(ds_api);
-    ds_jwt_auth.init();
+    const ds_api = new docusign.ApiClient()
+        , app_dir = '.'
+        , ds_jwt_auth = new DS_JWT_Auth(ds_api, ds_config, app_dir)
+        , ds_work = new DS_Work(ds_jwt_auth)
+        ;
 
-    let account_info = await ds_js.set_account(ds_configuration.target_account_id)
+    let account_info =
+      await ds_jwt_auth.find_account(ds_config.target_account_id);
 
     try {
-      let results = await ds_work.send_envelope_1(ds_configuration);
+      let results = await ds_work.send_envelope_1(ds_config);
       let worked = results.status === "sent" &&
             results.envelopeId.length > 10;
       expect(worked).to.equal(true);

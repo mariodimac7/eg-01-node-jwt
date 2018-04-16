@@ -7,7 +7,7 @@ const chai = require('chai')
     , should = chai.should()
     , fs = require('fs')
     , docusign = require('docusign-esign')
-    , DS_JWT_Auth = require('../lib/ds_jwt_auth.js')
+    , DS_JWT_Auth = require('../lib/DS_JWT_Auth.js')
     , path = require('path')
     , _ = require('lodash')
     , moment = require('moment')
@@ -38,7 +38,7 @@ describe (`Configuration file ${key_file}`, function() {
 
 const ds_config = require('../ds_configuration.js').config
 
-describe ('ds_jwt_auth', function(){
+describe ('DS_JWT_Auth', function(){
 
   let ds_jwt_auth;
   const app_dir = '.';
@@ -50,12 +50,12 @@ describe ('ds_jwt_auth', function(){
 
   it('#clear_token should clear its token', function(){
     ds_jwt_auth.clear_token();
-    let token = ds_jwt_auth.test.get_token();
+    let token = ds_jwt_auth.test_get_token();
     token.should.equal(false);
   })
   it('#clear_token should clear its token_expiration', function(){
     ds_jwt_auth.clear_token();
-    let t = ds_jwt_auth.test.get_token_expiration();
+    let t = ds_jwt_auth.test_get_token_expiration();
     t.should.equal(false);
   })
 
@@ -78,16 +78,17 @@ describe ('ds_jwt_auth', function(){
 
   it('#check_token should throw error if bad client_id', async function(){
     this.timeout(8000);
-    let cloned_ds_configuration = _.clone(ds_configuration);
-    cloned_ds_configuration.client_id = 'foo';
-    ds_jwt_auth = new DS_JWT_Auth(ds_api, cloned_ds_configuration, app_dir);
+    let ds_api = ds_jwt_auth.get_ds_api()
+      , cloned_ds_config = _.clone(ds_config);
+    cloned_ds_config.client_id = 'foo';
+    let my_ds_jwt_auth = new DS_JWT_Auth(ds_api, cloned_ds_config, app_dir);
     try {
-      const result = await ds_jwt_auth.check_token();
+      const result = await my_ds_jwt_auth.check_token();
       expect(false).to.equal(true); // we should never get here!
     } catch(e) {
       let {name, message} = e;
-      expect(   e.name === ds_jwt_auth.Error_JWT_get_token &&
-             e.message === ds_jwt_auth.Error_invalid_grant).to.equal(true);
+      expect(   e.name === my_ds_jwt_auth.Error_JWT_get_token &&
+             e.message === my_ds_jwt_auth.Error_invalid_grant).to.equal(true);
     }
   })
 
