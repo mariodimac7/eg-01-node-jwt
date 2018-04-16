@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 const
     docusign = require('docusign-esign')
   , DS_JWT_Auth = require('./lib/DS_JWT_Auth.js')
