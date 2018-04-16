@@ -7,8 +7,7 @@ const chai = require('chai')
     , should = chai.should()
     , fs = require('fs')
     , docusign = require('docusign-esign')
-    , ds_jwt_auth = require('../lib/ds_jwt_auth.js')
-    , ds_js = require('../lib/ds_js.js')
+    , DS_JWT_Auth = require('../lib/ds_jwt_auth.js')
     , ds_work = require('../lib/ds_work.js')
     , ds_configuration = require('../ds_configuration.js').config
     , path = require('path')
@@ -45,7 +44,7 @@ describe ('ds_work', function(){
         console.log (`API problem: Status code ${e.response.status}, message body:
   ${JSON.stringify(body, null, 4)}`);
       }
-      
+
       throw e; // an unexpected error has occured
     }
   })

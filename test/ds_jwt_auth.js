@@ -7,8 +7,7 @@ const chai = require('chai')
     , should = chai.should()
     , fs = require('fs')
     , docusign = require('docusign-esign')
-    , ds_jwt_auth = require('../lib/ds_jwt_auth.js')
-    , ds_js = require('../lib/ds_js.js')
+    , DS_JWT_Auth = require('../lib/ds_jwt_auth.js')
     , path = require('path')
     , _ = require('lodash')
     , moment = require('moment')
@@ -37,20 +36,22 @@ describe (`Configuration file ${key_file}`, function() {
   })
 })
 
-const ds_configuration = require('../ds_configuration.js').config
+const ds_config = require('../ds_configuration.js').config
 
 describe ('ds_jwt_auth', function(){
 
+  let ds_jwt_auth;
+  const app_dir = '.';
+
   before(function setup_ds_jwt_auth(){
     const ds_api = new docusign.ApiClient();
-    ds_js.set_ds_config(ds_configuration, '.');
-    ds_js.set_ds_api(ds_api);
-    ds_jwt_auth.init();
+    ds_jwt_auth = new DS_JWT_Auth(ds_api, ds_config, app_dir);
   });
 
   it('#clear_token should clear its token', function(){
     ds_jwt_auth.clear_token();
     let token = ds_jwt_auth.test.get_token();
+    token.should.equal(false);
   })
   it('#clear_token should clear its token_expiration', function(){
     ds_jwt_auth.clear_token();
@@ -75,13 +76,11 @@ describe ('ds_jwt_auth', function(){
     expect(t).to.equal(true);
   })
 
-
   it('#check_token should throw error if bad client_id', async function(){
     this.timeout(8000);
     let cloned_ds_configuration = _.clone(ds_configuration);
     cloned_ds_configuration.client_id = 'foo';
-    ds_js.set_ds_config(cloned_ds_configuration, '.');
-    ds_jwt_auth.clear_token();
+    ds_jwt_auth = new DS_JWT_Auth(ds_api, cloned_ds_configuration, app_dir);
     try {
       const result = await ds_jwt_auth.check_token();
       expect(false).to.equal(true); // we should never get here!
@@ -92,12 +91,47 @@ describe ('ds_jwt_auth', function(){
     }
   })
 
-  it('#check_token should fetch a token', async function(){
-    ds_jwt_auth.clear_token();
-    ds_js.set_ds_config(ds_configuration, '.');
-    const result = await ds_jwt_auth.check_token();
-    expect(result.token_received && result.token.length > 15).to.equal(true);
-   })
+  it('account_id should initially be null', () => {
+    expect(ds_jwt_auth.get_account_id()).be.null;
+  })
+  it('account_name should initially be null', () => {
+    expect(ds_jwt_auth.get_account_name()).be.null;
+  })
+  it('base_uri should initially be null', () => {
+    expect(ds_jwt_auth.get_base_uri()).be.null;
+  })
+
+  let good_account_id; // will be used in multiple tests
+
+  it('#find_account should find default account', async function(){
+    this.timeout(8000);
+    const result = await ds_jwt_auth.find_account(false);
+    let {account_id, account_name, base_uri} = result;
+    let user = ds_jwt_auth.get_user();
+    // Find default account from user information
+    let default_account_info = _.find(user.accounts, 'is_default');
+    good_account_id = account_id; // save for next test
+    expect(default_account_info.account_id).to.equal(account_id);
+  })
+
+  it('#find_account should find specific account', async function(){
+    this.timeout(8000);
+    const result = await ds_jwt_auth.find_account(good_account_id);
+    let {account_id, account_name, base_uri} = result;
+    expect(account_id).to.equal(good_account_id);
+  })
+
+  it('#find_account should throw error if bad account_id', async function(){
+    this.timeout(8000);
+    try {
+      const result = await ds_jwt_auth.find_account('foo');
+      expect(false).to.equal(true); // we should never get here!
+    } catch(e) {
+      let {name, message} = e;
+      expect(   name === ds_jwt_auth.Error_set_account &&
+             message === ds_jwt_auth.Error_account_not_found).to.equal(true);
+    }
+  })
 
 
 })
