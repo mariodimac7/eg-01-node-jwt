@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * @fileOverview index.js is the root file for the example.
+ * @file index.js is the root file for the example.
  * It initiates the example's <tt>DS_JWT_Auth</tt> and <tt>DS_Work libraries</tt>,
  * and then calls them
  * to create a JWT token and an envelope.
@@ -104,7 +104,7 @@ ${JSON.stringify(body, null, 4)}`);
 /**
  * Prints a message to the console
  * @param {string} m The message that will be printed
- * @private 
+ * @private
  */
 function log(m){console.log(m)}
 

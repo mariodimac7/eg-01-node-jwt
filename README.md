@@ -82,4 +82,5 @@ Submit support questions to [StackOverflow](https://stackoverflow.com). Use tag 
 Contributions via Pull Requests are appreciated.
 All contributions must use the MIT License.
 
-This repository uses the MIT license, see the LICENSE file.
+This repository uses the MIT license, see the
+[LICENSE](https://github.com/docusign/eg-01-node-jwt/blob/master/LICENSE) file.

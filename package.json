@@ -6,7 +6,8 @@
   "scripts": {
     "debug": "node  --inspect-brk index.js",
     "start": "node index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "docs": "./node_modules/.bin/jsdoc -d docs . lib/"
   },
   "directories": {
     "test": "test"
@@ -15,7 +16,7 @@
     "type": "git",
     "url": "https://github.com/docusign/eg-01-node-jwt"
   },
-  "author": "Larry Kluger",
+  "author": "DocuSign",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/docusign/eg-01-node-jwt/issues"
