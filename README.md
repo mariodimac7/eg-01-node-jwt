@@ -64,8 +64,6 @@ npm test
 ## Run the example
 
 ````
-./index.js
-   or
 npm start
 ````
 
