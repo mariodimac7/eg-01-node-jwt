@@ -46,6 +46,10 @@ To see a user's guid, **Edit** the user's information.
 On the **Edit User** screen, the guid for the user is shown as
 the `API Username`.
 
+### Reference documentation
+Reference [documentation](https://docusign.github.io/eg-01-node-jwt/)
+for the example is available.
+
 ### Test
 
 Because the tests create envelopes using the
