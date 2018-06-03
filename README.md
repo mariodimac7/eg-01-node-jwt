@@ -19,17 +19,22 @@ Download or clone this repository. Then:
 ````
 cd eg-01-node-jwt
 npm install
-cp example_ds_configuration.js ds_configuration.js
-cp example_ds_private_key.txt ds_private_key.txt
 ````
 
-* Edit file `ds_configuration.js` and fill in the information.
-* Add your Integration Key's private key to `ds_private_key.txt`.
+There are two ways to configure the example's settings:
+1. Edit the `ds_configuration.js` file.
+1. Set the environment variables before running the example. See the
+   example environment variable file `Example_env_file.txt`
 
 ### Creating the Integration Key
-Your Integration Key must be configured for a JWT OAuth authentication flow:
+Your DocuSign Integration Key must be configured for a JWT OAuth authentication flow:
 * Create a public/private key pair for the key. Store the private key
-  in the `ds_private_key.txt` file.
+  in a secure location. You can use a file or a key vault.
+* The example require the private key. It can be stored in a
+  file or provided as a variable (configuration setting `private_key`).
+  Note, if it is provided as a variable then it will be
+  temporarily stored in a file. A future release of the SDK will
+  not require the use of a temp file for the private key.
 * If you will be using individual permission grants, you must create a
   `Redirect URI` for the key. Any URL can be used. By default, this
   example uses `https://www.docusign.com`
@@ -70,6 +75,13 @@ npm test
 ````
 npm start
 ````
+The example file executes several example tasks:
+1. Send an html, Word, and PDF file in an envelope to be signed.
+1. List the envelopes in the account that are less than 30 days old.
+   The first of these envelopes will then be used for the remaining tasks.
+1. Get an envelope's status.
+1. List an envelope's recipients and their status.
+1. Download an envelope's document(s).
 
 ### Debugging
 
