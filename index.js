@@ -72,9 +72,32 @@ ${permission_url}\n`)
   // Next, send the envelope.
   // We could use a loop and catch statement here to handle
   // transient network problems
+  log ('\nSending an envelope...');
   let results = await ds_work.send_envelope_1(ds_config);
-  log (`\nEnvelope status: ${results.status}. Envelope ID: ${results.envelopeId}`);
-  log('\nDone!')
+  log (`Envelope status: ${results.status}. Envelope ID: ${results.envelopeId}`);
+
+  log ("\nList envelopes in the account...");
+  results = await ds_work.listEnvelopes();
+  if (results.envelopes && results.envelopes.length > 2){
+    log (`Results for ${results.envelopes.length} envelopes were returned. Showing the first two:`);
+    results.envelopes.length = 2;
+  }
+  let h = `Results: \n${JSON.stringify(results, null, '    ')}`
+  // Save an envelopeId for later use if an envelope list was returned (result set could be empty)
+  let firstEnvelopeId = results.envelopes && results.envelopes[0] && results.envelopes[0].envelopeId;
+  log(h);
+
+  log ("\nGet an envelope's status...");
+  results = await ds_work.getEnvelopeStatus(firstEnvelopeId);
+  log (`Results: \n${JSON.stringify(results, null, '    ')}`)
+
+  log ("\nList an envelope's recipients and their status...");
+  results = await ds_work.listEnvelopeRecipients(firstEnvelopeId);
+  log (`Results: \n${JSON.stringify(results, null, '    ')}`)
+  
+  log ("\nDownload an envelope's document(s)...");
+  results = await ds_work.getEnvelopeDocuments(firstEnvelopeId);
+  
 }
 
 /**

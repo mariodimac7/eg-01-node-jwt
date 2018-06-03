@@ -1,7 +1,0 @@
-# Copy this file to be ds_private_key.txt
-#
-# Then copy the private key from the DocuSign Administration to the new file,
-# including the START / END lines.
-#
-# ds_private_key.txt is in the git ignore list so you must also
-# store the file external to git.
