@@ -72,7 +72,7 @@ ${permission_url}\n`)
   // Next, send the envelope.
   // We could use a loop and catch statement here to handle
   // transient network problems
-  log ('\nSending an envelope...');
+  log ('\nSending an envelope with three documents. This operation takes about 14 seconds...');
   let results = await ds_work.send_envelope_1(ds_config);
   log (`Envelope status: ${results.status}. Envelope ID: ${results.envelopeId}`);
 
@@ -95,7 +95,7 @@ ${permission_url}\n`)
   results = await ds_work.listEnvelopeRecipients(firstEnvelopeId);
   log (`Results: \n${JSON.stringify(results, null, '    ')}`)
   
-  log ("\nDownload an envelope's document(s)...");
+  log ("\nList an envelope's document(s) and then download them. This operation takes about 15 seconds.");
   results = await ds_work.getEnvelopeDocuments(firstEnvelopeId);
   
 }

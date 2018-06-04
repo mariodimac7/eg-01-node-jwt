@@ -14,7 +14,6 @@ const chai = require('chai')
     ;
 
 const config_file = 'ds_configuration.js'
-    , key_file = 'ds_private_key.txt'
     , config_file_path = './'
     ;
 
@@ -27,16 +26,30 @@ describe (`Configuration file ${config_file}`, function() {
   })
 })
 
-describe (`Configuration file ${key_file}`, function() {
-  it('should exist', function() {
-    let check_config_file = function() {
-      fs.accessSync(path.resolve(config_file_path, key_file), fs.constants.R_OK)
-    }
-    expect(check_config_file).to.not.throw();
+const ds_config = require('../ds_configuration.js').config
+
+describe (`The configuration settings`, function() {
+
+  it('Integration Key must be set', function(){
+    let ik = ds_config.client_id,
+        good_ik = ik && ik.length > 10;
+    good_ik.should.equal(true);
   })
+
+  it('User Id in guid format must be set', function(){
+    let guid = ds_config.impersonated_user_guid,
+      good = guid && guid.length > 15;
+    good.should.equal(true);
+  })
+
+  it('Private Key must be set', function(){
+    let private_key = ds_config.private_key,
+        good = private_key && private_key.length > 50;
+    good.should.equal(true);
+  })
+
 })
 
-const ds_config = require('../ds_configuration.js').config
 
 describe ('DS_JWT_Auth', function(){
 
