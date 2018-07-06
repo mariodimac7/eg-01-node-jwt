@@ -15,6 +15,8 @@ const
     docusign = require('docusign-esign')
   , DS_JWT_Auth = require('./lib/DS_JWT_Auth.js')
   , DS_Work = require('./lib/DS_Work.js')
+  , sendEnvelope = require('./lib/sendEnvelope').sendEnvelope
+  , listEnvelopes = require('./lib/listEnvelopes').listEnvelopes
   , ds_config = require('./ds_configuration.js').config
   , _ = require('lodash')
   ;
@@ -35,14 +37,12 @@ async function _main() {
       ;
 
   // initialization
-  const app_dir = __dirname;
-  let ds_jwt_auth = new DS_JWT_Auth(ds_api, ds_config, app_dir);
+  let ds_jwt_auth = new DS_JWT_Auth(ds_api, ds_config);
   ds_jwt_auth.set_debug(debug);
-  let ds_work = new DS_Work(ds_jwt_auth);
 
   log ("Starting...");
   try {
-    // set_account will also get the user's info and create a token
+    // set_account will first create a token. It will also get the user's info. 
     account_info = await ds_jwt_auth.find_account(ds_config.target_account_id)
   } catch(e) {
     let {name, message} = e;
