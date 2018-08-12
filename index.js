@@ -68,23 +68,25 @@ async function main() {
     let body = e.response && e.response.body;
     if (body) {
       // DocuSign API problem
-      if (body.indexOf('consent_required') > -1) {
+      if (body.error == 'consent_required') {
         // Consent problem
-        let permission_url = dsApi.getJWTUri(
-          ds_config.client_id,
-          ds_config.oauth_redirect_URI,
-          ds_config.aud);
-        console.log(`\nProblem!
-  The client_id (Integration Key) you're using (${ds_config.client_id}) does not
-  have permission to impersonate the user. You have two choices:
-  
-  1) Use DocuSign Organization Administration to grant blanket impersonation permission to the client_id.
-  2) Or use the following URL in a browser to log in as the user and individually grant permission.
-  ${permission_url}\n`)
+        let consent_scopes = "signature%20impersonation",
+            consent_url = `${dsConfig.authentication_url}/oauth/auth?response_type=code&` +
+              `scope=${consent_scopes}&client_id=${dsConfig.client_id}&` +
+              `redirect_uri=${dsConfig.oauth_consent_redirect_URI}`;
+        console.log(`\nProblem:   C O N S E N T   R E Q U I R E D
+
+    Ask the user who will be impersonated to run the following url:
+        ${consent_url}
+    
+    It will ask the user to login and to approve access by your application.
+    
+    Alternatively, an Administrator can use Organization Administration to
+    pre-approve one or more users.\n\n`)
       } else {
         // Some other DocuSign API problem 
-      log (`API problem: Status code ${e.response.status}, message body:
-${JSON.stringify(body, null, 4)}`);
+      log (`\nAPI problem: Status code ${e.response.status}, message body:
+${JSON.stringify(body, null, 4)}\n\n`);
       e.all_done = true;
       }  
     } else {

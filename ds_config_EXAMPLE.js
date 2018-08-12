@@ -34,7 +34,7 @@ exports.config = {
      *  permission to the client_id if organizational-level permissions
      *  are not used.
      *  <br><b>Default:</b> <tt>https://www.docusign.com</tt> */
-  , oauth_redirect_URI: 'https://www.docusign.com'
+  , oauth_consent_redirect_URI: 'https://www.docusign.com'
     /** The email address for the envelope's signer. */
   , signer_email: env.DS_SIGNER_1_EMAIL || ''
     /** The name of the envelope's signer. */
