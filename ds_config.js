@@ -46,26 +46,15 @@ exports.config = {
   , cc_email: env.DS_CC_1_EMAIL || ''
     /** The name of the envelope's cc recipient. */
   , cc_name: env.DS_CC_1_NAME || ''
-    /** The path name of the file containing the Integration Key's
-    * private key file. The path is relative to the example's home dir.
-    * If set to <tt>FALSE</tt> then put the private key in the <tt>private_key</tt> variable
-    * <br><b>Default:</b> <tt>./ds_private_key.txt</tt> */
-  , private_key_file: env.DS_PRIVATE_KEY_FILE === 'FALSE' ? false :
-      (env.DS_PRIVATE_KEY_FILE ? env.DS_PRIVATE_KEY_FILE : '')
-    /** The value of the private key itself. This value is ignored unless private_key_file === false
-     */
+    /** The private key */
   , private_key: env.DS_PRIVATE_KEY || ''
     /** For the Developer Sandbox (demo) use <b>https://account-d.docusign.com</b><br>
       * For production (all sites) use <b>https://account.docusign.com</b> */
   , authentication_url: 'https://account-d.docusign.com'
     /** For the Developer Sandbox (demo) use <b>account-d.docusign.com</b><br>
       * For production (all sites) use <b>account.docusign.com</b> */
-  , aud: 'account-d.docusign.com'
-    /** URL path segment for the API.
-      * <br><b>Default:</b> <tt>restapi/v2</tt> */
   , api: 'restapi/v2'
-    /** <i>This setting will be used in the future.</i>
-      * The OAuth scope grant permissions needed.
+    /** The OAuth scope grant permissions needed.
       * <br><b>Default:</b> <tt>signature impersonation</tt> */
   , permission_scopes: 'signature impersonation'
   /** <i>This setting will be used in the future.</i>

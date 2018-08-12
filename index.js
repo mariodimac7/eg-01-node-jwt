@@ -12,13 +12,10 @@
 'use strict';
 
 const
-    docusign = require('docusign-esign')
-  , DS_JWT_Auth = require('./lib/DS_JWT_Auth.js')
-  , DS_Work = require('./lib/DS_Work.js')
-  , sendEnvelope = require('./lib/sendEnvelope').sendEnvelope
-  , listEnvelopes = require('./lib/listEnvelopes').listEnvelopes
-  , ds_config = require('./ds_configuration.js').config
-  , _ = require('lodash')
+    DS_JWT_Auth = require('./lib/DS_JWT_Auth.js')
+  , SendEnvelope = require('./lib/SendEnvelope')
+  //, ListEnvelopes = require('./lib/ListEnvelopes')
+  , dsConfig = require('./ds_config.js').config
   ;
 
 /**
@@ -30,74 +27,32 @@ const
  * @private
  */
 async function _main() {
-  // globals for the methods...
-  let account_info;
-  const ds_api = new docusign.ApiClient() // Globals that won't change.
-      , debug = true // should debugging info be printed to console?
-      ;
+  const debug = true; // should debugging info be printed to console?
 
   // initialization
-  let ds_jwt_auth = new DS_JWT_Auth(ds_api, ds_config);
-  ds_jwt_auth.set_debug(debug);
+  let dsJwtAuth = new DS_JWT_Auth(debug);
 
-  log ("Starting...");
-  try {
-    // set_account will first create a token. It will also get the user's info. 
-    account_info = await ds_jwt_auth.find_account(ds_config.target_account_id)
-  } catch(e) {
-    let {name, message} = e;
-    if (name === ds_jwt_auth.Error_JWT_get_token){
-      if (message === ds_jwt_auth.Error_consent_required) {
-        let permission_url = ds_api.getJWTUri(
-          ds_config.client_id,
-          ds_config.oauth_redirect_URI,
-          ds_config.aud);
-        console.log(`\nProblem!
-The client_id (Integration Key) you're using (${ds_config.client_id}) does not
-have permission to impersonate the user. You have two choices:
-
-1) Use DocuSign Organization Administration to grant blanket impersonation permission to the client_id.
-2) Or use the following URL in a browser to log in as the user and individually grant permission.
-${permission_url}\n`)
-      } else {
-        console.log(`Error while authorizing via JWT: ${message}`)
+  log ('\nSend an envelope with three documents. This operation takes about 15 seconds...');
+  let sendEnvelope = new SendEnvelope(dsJwtAuth)
+    , envelopeArgs = {
+        signer_email: dsConfig.signer_email,
+        signer_name: dsConfig.signer_name,
+        cc_email: dsConfig.cc_email, 
+        cc_name: dsConfig.cc_name
       }
-    } // end of name === ds_jwt_auth.Error_JWT_get_token
-    e.all_done = true; // we don't want any more processing
-    throw e
-  }
-  let {account_id, account_name, base_uri} = account_info;
-  log(`Account: ${account_name} [${account_id}]`)
-
-  // Next, send the envelope.
-  // We could use a loop and catch statement here to handle
-  // transient network problems
-  log ('\nSending an envelope with three documents. This operation takes about 14 seconds...');
-  let results = await ds_work.send_envelope_1(ds_config);
+    , results = await sendEnvelope.sendEnvelope1(envelopeArgs);
   log (`Envelope status: ${results.status}. Envelope ID: ${results.envelopeId}`);
 
-  log ("\nList envelopes in the account...");
-  results = await ds_work.listEnvelopes();
-  if (results.envelopes && results.envelopes.length > 2){
-    log (`Results for ${results.envelopes.length} envelopes were returned. Showing the first two:`);
-    results.envelopes.length = 2;
-  }
-  let h = `Results: \n${JSON.stringify(results, null, '    ')}`
-  // Save an envelopeId for later use if an envelope list was returned (result set could be empty)
-  let firstEnvelopeId = results.envelopes && results.envelopes[0] && results.envelopes[0].envelopeId;
-  log(h);
+  // log ("\nList envelopes in the account...");
+  // let listEnvelope = new ListEnvelope(dsJwtAuth),
+  //     results = await listEnvelope.sendEnvelope1();
+  // if (results.envelopes && results.envelopes.length > 2){
+  //   log (`Results for ${results.envelopes.length} envelopes were returned. Showing the first two:`);
+  //   results.envelopes.length = 2;
+  // }
+  // let h = `Results: \n${JSON.stringify(results, null, '    ')}`
 
-  log ("\nGet an envelope's status...");
-  results = await ds_work.getEnvelopeStatus(firstEnvelopeId);
-  log (`Results: \n${JSON.stringify(results, null, '    ')}`)
-
-  log ("\nList an envelope's recipients and their status...");
-  results = await ds_work.listEnvelopeRecipients(firstEnvelopeId);
-  log (`Results: \n${JSON.stringify(results, null, '    ')}`)
-  
-  log ("\nList an envelope's document(s) and then download them. This operation takes about 15 seconds.");
-  results = await ds_work.getEnvelopeDocuments(firstEnvelopeId);
-  
+  log ("\nDone.\n");
 }
 
 /**
@@ -110,16 +65,31 @@ async function main() {
   try {
     await _main();
   } catch (e) {
-    let body = _.get(e, 'response.body', false);
+    let body = e.response && e.response.body;
     if (body) {
-      // API problem
+      // DocuSign API problem
+      if (body.indexOf('consent_required') > -1) {
+        // Consent problem
+        let permission_url = dsApi.getJWTUri(
+          ds_config.client_id,
+          ds_config.oauth_redirect_URI,
+          ds_config.aud);
+        console.log(`\nProblem!
+  The client_id (Integration Key) you're using (${ds_config.client_id}) does not
+  have permission to impersonate the user. You have two choices:
+  
+  1) Use DocuSign Organization Administration to grant blanket impersonation permission to the client_id.
+  2) Or use the following URL in a browser to log in as the user and individually grant permission.
+  ${permission_url}\n`)
+      } else {
+        // Some other DocuSign API problem 
       log (`API problem: Status code ${e.response.status}, message body:
 ${JSON.stringify(body, null, 4)}`);
       e.all_done = true;
-    }
-
-    if (! (('all_done' in e) && e.all_done === true)) {
-      throw e; // an unexpected error has occured
+      }  
+    } else {
+      // Not an API problem
+      throw e;
     }
   }
 }

@@ -21,14 +21,10 @@ during normal operation.
 The application uses the OAuth JWT grant flow to impersonate
 a user in the account.
 
-The example includes the following tasks:
+This launcher example includes two examples:
 1. Send an html, Word, and PDF file in an envelope to be signed.
 1. List the envelopes in the account that are less than 30 days old.
    The first of these envelopes will then be used for the remaining tasks.
-1. Get an envelope's status.
-1. List an envelope's recipients and their status.
-1. Download an envelope's document(s).
-
 
 ## Installation
 
@@ -85,10 +81,10 @@ for the example is available.
 ### Test
 
 Because the tests create envelopes using the
-DocuSgn developer sandbox (demo) system,
+DocuSign developer sandbox (demo) system,
 you must create an integration key and configure
 the example's `ds_configuration.js`
-and `ds_private_key.txt` before runnning the tests.
+and `ds_private_key.txt` before running the tests.
 
 
 Run the tests:
@@ -97,7 +93,7 @@ Run the tests:
 npm test
 ````
 
-## Run the example
+## Run the examples
 
 ````
 npm start
