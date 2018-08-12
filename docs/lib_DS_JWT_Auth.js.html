@@ -269,7 +269,7 @@ DS_JWT_Auth.prototype._find_account_internal = function(args){
  * @returns {promise} promise with result from the &lt;tt>userInfo&lt;/tt> API method
  */
 DS_JWT_Auth.prototype.call_userInfo = function(token_result){
-  let url = `${this._ds_config.authentication_url}/oauth/userinfo`;
+  let url = `${this._ds_config.auth_server}/oauth/userinfo`;
   return (rp.get(url, {
       auth: {bearer: token_result.token},
       json: true

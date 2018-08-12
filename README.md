@@ -38,7 +38,7 @@ npm install
 ````
 
 There are two ways to configure the example's settings:
-1. Edit the `ds_configuration.js` file in the root directory
+1. Edit the `ds_config.js` file in the root directory
    of the example.
 1. Set the environment variables before running the example. See the
    example environment variable file `Example_env_file.txt`.

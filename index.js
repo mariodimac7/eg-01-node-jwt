@@ -70,10 +70,10 @@ async function main() {
     let body = e.response && e.response.body;
     if (body) {
       // DocuSign API problem
-      if (body.error == 'consent_required') {
+      if (body.error && body.error == 'consent_required') {
         // Consent problem
         let consent_scopes = "signature%20impersonation",
-            consent_url = `${dsConfig.authentication_url}/oauth/auth?response_type=code&` +
+            consent_url = `${dsConfig.auth_server}/oauth/auth?response_type=code&` +
               `scope=${consent_scopes}&client_id=${dsConfig.client_id}&` +
               `redirect_uri=${dsConfig.oauth_consent_redirect_URI}`;
         console.log(`\nProblem:   C O N S E N T   R E Q U I R E D

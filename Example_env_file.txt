@@ -5,7 +5,7 @@ export DS_SIGNER_1_EMAIL=""
 export DS_SIGNER_1_NAME="George Smiley"
 export DS_CC_1_EMAIL=""
 export DS_CC_1_NAME="Sam Spade"
-export DS_PRIVATE_KEY_FILE="FALSE"
+export DS_AUTH_SERVER=https://account-d.docusign.com
 export DS_PRIVATE_KEY="
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAkbz3bi31zrH2ry4p8S4ncPoMdkUyu+MG46m9BalOKzWNNAvW

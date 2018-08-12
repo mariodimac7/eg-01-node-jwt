@@ -2,14 +2,13 @@
 /**
  * @file
  * This the configuration file for the example.
- * <br><b>Usage:</b> <tt>ds_config = require('./ds_configuration.js').config</tt>
+ * <br><b>Usage:</b> <tt>ds_config = require('./ds_config.js').config</tt>
  * @author DocuSign
  */
 
 
 /**
  * Configuration file.
- * @exports DS_Configuration
  */
 
 const env = process.env;
@@ -29,12 +28,6 @@ exports.config = {
      *  <br><b>Default:</b> <b>false</tt> */
   , target_account_id: env.DS_TARGET_ACCOUNT_ID === "FALSE" ? false : 
       (env.DS_TARGET_ACCOUNT_ID ? env.DS_TARGET_ACCOUNT_ID : '')
-    /** The same value must be set as a redirect URI in the
-     *  DocuSign admin tool. This setting is <b>only</b> used for individually granting
-     *  permission to the client_id if organizational-level permissions
-     *  are not used.
-     *  <br><b>Default:</b> <tt>https://www.docusign.com</tt> */
-  , oauth_consent_redirect_URI: 'https://www.docusign.com'
     /** The email address for the envelope's signer. */
   , signer_email: env.DS_SIGNER_1_EMAIL || ''
     /** The name of the envelope's signer. */
@@ -50,15 +43,11 @@ exports.config = {
   , private_key: env.DS_PRIVATE_KEY || ''
     /** For the Developer Sandbox (demo) use <b>https://account-d.docusign.com</b><br>
       * For production (all sites) use <b>https://account.docusign.com</b> */
-  , authentication_url: 'https://account-d.docusign.com'
-    /** For the Developer Sandbox (demo) use <b>account-d.docusign.com</b><br>
-      * For production (all sites) use <b>account.docusign.com</b> */
-  , api: 'restapi/v2'
-    /** The OAuth scope grant permissions needed.
-      * <br><b>Default:</b> <tt>signature impersonation</tt> */
-  , permission_scopes: 'signature impersonation'
-  /** <i>This setting will be used in the future.</i>
-    * The OAuth scope grant explicitly needed for the JWT request.
-    * <br><b>Default:</b> <tt>signature</tt> */
-  , jwt_scope: 'signature'
+  , auth_server: env.DS_AUTH_SERVER || 'https://account-d.docusign.com'
+    /** The same value must be set as a redirect URI in the
+     *  DocuSign admin tool. This setting is <b>only</b> used for individually granting
+     *  permission to the client_id if organizational-level permissions
+     *  are not used.
+     *  <br><b>Default:</b> <tt>https://www.docusign.com</tt> */
+  , oauth_consent_redirect_URI: 'https://www.docusign.com'
 }
