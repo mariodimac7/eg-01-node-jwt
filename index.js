@@ -14,7 +14,7 @@
 const
     DS_JWT_Auth = require('./lib/DS_JWT_Auth.js')
   , SendEnvelope = require('./lib/SendEnvelope')
-  //, ListEnvelopes = require('./lib/ListEnvelopes')
+  , ListEnvelopes = require('./lib/ListEnvelopes')
   , dsConfig = require('./ds_config.js').config
   ;
 
@@ -43,14 +43,16 @@ async function _main() {
     , results = await sendEnvelope.sendEnvelope1(envelopeArgs);
   log (`Envelope status: ${results.status}. Envelope ID: ${results.envelopeId}`);
 
-  // log ("\nList envelopes in the account...");
-  // let listEnvelope = new ListEnvelope(dsJwtAuth),
-  //     results = await listEnvelope.sendEnvelope1();
-  // if (results.envelopes && results.envelopes.length > 2){
-  //   log (`Results for ${results.envelopes.length} envelopes were returned. Showing the first two:`);
-  //   results.envelopes.length = 2;
-  // }
-  // let h = `Results: \n${JSON.stringify(results, null, '    ')}`
+  log ("\nList envelopes in the account...");
+  let listEnvelopes = new ListEnvelopes(dsJwtAuth);
+  results = await listEnvelopes.listEnvelopes1();
+  if (results.envelopes && results.envelopes.length > 2){
+    log (`Results for ${results.envelopes.length} envelopes were returned. Showing the first two:`);
+    results.envelopes.length = 2;
+  } else {
+    log (`Results for ${results.envelopes.length} envelopes were returned:`);   
+  }
+  log (`\n${JSON.stringify(results, null, '    ')}`);
 
   log ("\nDone.\n");
 }
