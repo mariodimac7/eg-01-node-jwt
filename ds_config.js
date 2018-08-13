@@ -27,7 +27,7 @@ exports.config = {
      *  version of the account number.
      *  <br><b>Default:</b> <b>false</tt> */
   , target_account_id: env.DS_TARGET_ACCOUNT_ID === "FALSE" ? false : 
-      (env.DS_TARGET_ACCOUNT_ID ? env.DS_TARGET_ACCOUNT_ID : '')
+      (env.DS_TARGET_ACCOUNT_ID ? env.DS_TARGET_ACCOUNT_ID : 'FALSE')
     /** The email address for the envelope's signer. */
   , signer_email: env.DS_SIGNER_1_EMAIL || ''
     /** The name of the envelope's signer. */
@@ -40,7 +40,8 @@ exports.config = {
     /** The name of the envelope's cc recipient. */
   , cc_name: env.DS_CC_1_NAME || ''
     /** The private key */
-  , private_key: env.DS_PRIVATE_KEY || ''
+    /** Enter the key as a multiline string value. No leading spaces! */
+  , private_key: env.DS_PRIVATE_KEY || ``
     /** For the Developer Sandbox (demo) use <b>https://account-d.docusign.com</b><br>
       * For production (all sites) use <b>https://account.docusign.com</b> */
   , auth_server: env.DS_AUTH_SERVER || 'https://account-d.docusign.com'
