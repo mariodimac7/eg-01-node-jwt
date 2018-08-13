@@ -24,7 +24,6 @@ a user in the account.
 This launcher example includes two examples:
 1. Send an html, Word, and PDF file in an envelope to be signed.
 1. List the envelopes in the account that are less than 30 days old.
-   The first of these envelopes will then be used for the remaining tasks.
 
 ## Installation
 
@@ -42,25 +41,32 @@ There are two ways to configure the example's settings:
    of the example.
 1. Set the environment variables before running the example. See the
    example environment variable file `Example_env_file.txt`.
+
    Recommendation: copy the file to a new file, `.env` Then
    configure the file and load its data into your terminal
    session to set the environment variables.
 
-   This technique enables you to configure the software
+   `.env` is in `.gitignore`. This technique enables you to configure the software
    without including your private information in the repository.
 
 ### Creating the Integration Key
-Your DocuSign Integration Key must be configured for a JWT OAuth authentication flow:
+Your DocuSign Integration Key (clientId) must be configured for a JWT OAuth authentication flow:
 * Create a public/private key pair for the key. Store the private key
   in a secure location. You can use a file or a key vault.
-* The example requires the private key. It can be stored in a
-  file or provided as a variable (configuration setting `private_key`).
-  Note, if it is provided as a variable then it will be
+* The example requires the private key. Provide it as a
+  string, as configuration setting `private_key`.
+
+  Note, while the example is running, the key will be
   temporarily stored in a file. A future release of the SDK will
   not require the use of a temp file for the private key.
 * If you will be using individual permission grants, you must create a
   `Redirect URI` for the key. Any URL can be used. By default, this
   example uses `https://www.docusign.com`
+  This redirect url is just used for obtaining consent. You can
+  use the docusign.com default in your test example.
+
+  For production, DocuSign recommends using Organization administration
+  to proactively grant consent to the client ID, the Integration Key.
 
 ### The impersonated user's guid
 The JWT will impersonate a user within your account. The user can be
@@ -74,35 +80,23 @@ To see a user's guid, **Edit** the user's information.
 On the **Edit User** screen, the guid for the user is shown as
 the `API Username`.
 
-### Reference documentation
-Reference [documentation](https://docusign.github.io/eg-01-node-jwt/)
-for the example is available.
-
-### Test
-
-Because the tests create envelopes using the
-DocuSign developer sandbox (demo) system,
-you must create an integration key and configure
-the example's `ds_configuration.js`
-and `ds_private_key.txt` before running the tests.
-
-
-Run the tests:
-
-````
-npm test
-````
-
 ## Run the examples
 
 ````
 npm start
 ````
 
-### Debugging
+### Test
+
+Because the tests create envelopes using the
+DocuSign developer sandbox (demo) system,
+you must create an integration key and configure
+the example before running the tests.
+
+Run the tests:
 
 ````
-npm run-script debug
+npm test
 ````
 
 ## Support, Contributions, License
