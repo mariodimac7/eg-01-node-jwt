@@ -96,7 +96,6 @@ async function main() {
         // Some other DocuSign API problem 
       log (`\nAPI problem: Status code ${e.response.status}, message body:
 ${JSON.stringify(body, null, 4)}\n\n`);
-      e.all_done = true;
       }  
     } else {
       // Not an API problem
