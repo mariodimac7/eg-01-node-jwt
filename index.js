@@ -32,6 +32,13 @@ async function _main() {
   // initialization
   let dsJwtAuth = new DS_JWT_Auth(debug);
 
+  if (! dsConfig.client_id) {
+    log (`\nProblem: you need to configure this example,
+    either via environment variables (recommended) or via the ds_config.js
+    file. See the README file for more information\n\n`);
+    process.exit();
+  }
+
   log ('\nSend an envelope with three documents. This operation takes about 15 seconds...');
   let sendEnvelope = new SendEnvelope(dsJwtAuth)
     , envelopeArgs = {
