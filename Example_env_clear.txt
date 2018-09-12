@@ -1,0 +1,14 @@
+#
+# Do NOT store private data in your code repository
+#
+# Use this file to clear all of the environment values
+#
+unset DS_CLIENT_ID
+unset DS_IMPERSONATED_USER_GUID
+unset DS_TARGET_ACCOUNT_ID
+unset DS_SIGNER_1_EMAIL
+unset DS_SIGNER_1_NAME
+unset DS_CC_1_EMAIL
+unset DS_CC_1_NAME
+unset DS_AUTH_SERVER
+unset DS_PRIVATE_KEY
