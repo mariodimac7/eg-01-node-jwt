@@ -18,7 +18,7 @@ Two screencasts for this launcher and its examples are available:
 * [Creating an Integration Key (a client id) for JWT authentication.][createIKvideo]
 * [Installing and configuring the Node.JS JWT example launcher.][installVideo]
 
-[[[installVideoThumb]]][installVideo]&nbsp;&nbsp;&nbsp;&nbsp;[[[createIKvideoThumb]]][createIKvideo]
+[Create IK video][createIKvideoThumb][createIKvideo]&nbsp;&nbsp;&nbsp;&nbsp;![Installation Video][installVideoThumb][installVideo]
 
 
 [createIKvideo]:https://docusigninc.box.com/s/44jbleni0zi3ol4i0ujqjmcobwogly3m
