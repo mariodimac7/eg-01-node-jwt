@@ -11,6 +11,22 @@ Repository: [eg-01-node-jwt](https://github.com/docusign/eg-01-node-jwt)
 * Screencast: Sending an example with Node.JS SDK.
 -->
 
+## Screencasts
+
+Two screencasts for this launcher and its examples are available:
+
+* [Creating an Integration Key (a client id) for JWT authentication.][createIKvideo]
+* [Installing and configuring the Node.JS JWT example launcher.][installVideo]
+
+[[[installVideoThumb]]][installVideo]&nbsp;&nbsp;&nbsp;&nbsp;[[[createIKvideoThumb]]][createIKvideo]
+
+
+[createIKvideo]:https://docusigninc.box.com/s/44jbleni0zi3ol4i0ujqjmcobwogly3m
+[installVideo]:https://docusigninc.box.com/s/hz90fje6e89spx2p9z0d9b19xxokrmmq
+[installVideoThumb]:https://raw.githubusercontent.com/docusign/eg-01-node-jwt/master/assets/Video_cover_Installing_JWT_Node_200.png
+[createIKvideoThumb]:https://raw.githubusercontent.com/docusign/eg-01-node-jwt/master/assets/Video_cover_creating_JWT_IK_200.png
+
+
 ## Introduction
 
 This software is an example of a **System Integration**.
