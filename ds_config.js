@@ -14,7 +14,7 @@
 const env = process.env;
 
 exports.config = {
-    /** The app's integration key. */
+    /** The app's integration key. The 'interegration key' is the same as the 'client id'. */
     client_id: env.DS_CLIENT_ID || ''
     /** The <tt>guid</tt> for the user who will be impersonated.
      *  An email address can't be used.
