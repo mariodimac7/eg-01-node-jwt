@@ -13,12 +13,11 @@ Repository: [eg-01-node-jwt](https://github.com/docusign/eg-01-node-jwt)
 
 ## Screencasts
 
-Two screencasts for this launcher and its examples are available:
+A screencast for this launcher is available:
 
 * [Creating an Integration Key (a client id) for JWT authentication.][createIKvideo]
-* [Installing and configuring the Node.JS JWT example launcher.][installVideo]
 
-[![Create IK video][createIKvideoThumb]][createIKvideo]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Installation Video][installVideoThumb]][installVideo]
+[![Create IK video][createIKvideoThumb]][createIKvideo]
 
 
 [createIKvideo]:https://www.youtube.com/watch?v=55j4eZLK5Hg
@@ -55,15 +54,7 @@ npm install
 There are two ways to configure the example's settings:
 1. Edit the `dsConfig.js` file in the root directory
    of the example.
-1. Set the environment variables before running the example. See the
-   example environment variable file `Example_env_file.txt`.
-
-   Recommendation: copy the file to a new file, `.env` Then
-   configure the file and load its data into your terminal
-   session to set the environment variables.
-
-   `.env` is in `.gitignore`. This technique enables you to configure the software
-   without including your private information in the repository.
+1. Set environment variables before running the example. 
 
 ### Creating the Integration Key
 Your DocuSign Integration Key (clientId) must be configured for a JWT OAuth authentication flow:
@@ -72,9 +63,6 @@ Your DocuSign Integration Key (clientId) must be configured for a JWT OAuth auth
 * The example requires the private key. Provide it as a
   string, as configuration setting `privateKey`.
 
-  Note, while the example is running, the key will be
-  temporarily stored in a file. A future release of the SDK will
-  not require the use of a temp file for the private key.
 * If you will be using individual permission grants, you must create a
   `Redirect URI` for the key. Any URL can be used. By default, this
   example uses `https://www.docusign.com`
@@ -100,19 +88,6 @@ the `API Username`.
 
 ````
 npm start
-````
-
-### Test
-
-Because the tests create envelopes using the
-DocuSign developer sandbox (demo) system,
-you must create an integration key and configure
-the example before running the tests.
-
-Run the tests:
-
-````
-npm test
 ````
 
 ## Support, Contributions, License
