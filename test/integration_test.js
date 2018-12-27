@@ -3,17 +3,17 @@
 const chai = require('chai')
     , expect = chai.expect
     , should = chai.should()
-    , DS_JWT_Auth = require('../lib/DS_JWT_Auth.js')
+    , DS_JWT_Auth = require('../lib/DsJwtAuth.js')
     , SendEnvelope = require('../lib/SendEnvelope')
     , ListEnvelopes = require('../lib/ListEnvelopes')
-    , dsConfig = require('../ds_config.js').config
+    , dsConfig = require('../dsConfig.js').config
     ;
 
 describe ('eg-01-Node-JWT (First test takes 15 seconds.)', function(){
 
     let dsJwtAuth = new DS_JWT_Auth(true);
 
-    if (! dsConfig.client_id) {
+    if (! dsConfig.clientId) {
         console.log (`\nProblem: you need to configure this example,
         either via environment variables (recommended) or via the ds_config.js
         file. See the README file for more information\n\n`);
@@ -21,15 +21,15 @@ describe ('eg-01-Node-JWT (First test takes 15 seconds.)', function(){
     }
   
     it('#send_envelope_1 should work', async function(){
-        this.timeout(30000); // 30 sec allows for the token to be acquired and the envelope to be created
+        this.timeout(30000); // 30 sec allows for the accessToken to be acquired and the envelope to be created
 
         try {
             let sendEnvelope = new SendEnvelope(dsJwtAuth)
             , envelopeArgs = {
-                signer_email: dsConfig.signer_email,
-                signer_name: dsConfig.signer_name,
-                cc_email: dsConfig.cc_email, 
-                cc_name: dsConfig.cc_name
+                signerEmail: dsConfig.signerEmail,
+                signerName: dsConfig.signerName,
+                ccEmail: dsConfig.ccEmail,
+                ccName: dsConfig.ccName
               }
             , results = await sendEnvelope.sendEnvelope1(envelopeArgs);
         
@@ -53,7 +53,7 @@ describe ('eg-01-Node-JWT (First test takes 15 seconds.)', function(){
     });
 
     it('#list_envelopes should work', async function(){
-        this.timeout(30000); // 30 sec allows for the token to be acquired and the envelope to be created
+        this.timeout(30000); // 30 sec allows for the accessToken to be acquired and the envelope to be created
 
         try {
             let listEnvelopes = new ListEnvelopes(dsJwtAuth)

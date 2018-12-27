@@ -53,7 +53,7 @@ npm install
 ````
 
 There are two ways to configure the example's settings:
-1. Edit the `ds_config.js` file in the root directory
+1. Edit the `dsConfig.js` file in the root directory
    of the example.
 1. Set the environment variables before running the example. See the
    example environment variable file `Example_env_file.txt`.
@@ -70,7 +70,7 @@ Your DocuSign Integration Key (clientId) must be configured for a JWT OAuth auth
 * Create a public/private key pair for the key. Store the private key
   in a secure location. You can use a file or a key vault.
 * The example requires the private key. Provide it as a
-  string, as configuration setting `private_key`.
+  string, as configuration setting `privateKey`.
 
   Note, while the example is running, the key will be
   temporarily stored in a file. A future release of the SDK will
