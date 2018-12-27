@@ -1,44 +1,38 @@
 
 /**
  * @file
- * This the configuration file for the example.
- * <br><b>Usage:</b> <tt>ds_config = require('./ds_config.js').config</tt>
+ * The configuration file for the example.
  * @author DocuSign
  */
 
 
-/**
- * Configuration file.
- */
-
 const env = process.env;
 
 exports.config = {
-    /** The app's integration key. */
-    client_id: env.DS_CLIENT_ID || ''
+    /** The app's integration key. "Integration key" is a synonym for "client id.' */
+    client_id: env.DS_CLIENT_ID || '{CLIENT_ID}'
     /** The <tt>guid</tt> for the user who will be impersonated.
      *  An email address can't be used.
      *  This is the user (or 'service account')
      *  that the JWT will represent. */
-  , impersonated_user_guid: env.DS_IMPERSONATED_USER_GUID || ''
+  , impersonated_user_guid: env.DS_IMPERSONATED_USER_GUID || '{IMPERSONATED_GUID}'
     /** The account_id that will be used.
      *  If set to <b>false</b>, then the user's default account will be used.
      *  If an account_id is provided then it must be the guid
      *  version of the account number.
      *  <br><b>Default:</b> <b>false</tt> */
-  , target_account_id: env.DS_TARGET_ACCOUNT_ID === "FALSE" ? false : 
-      (env.DS_TARGET_ACCOUNT_ID ? env.DS_TARGET_ACCOUNT_ID : 'FALSE')
+  , target_account_id: false
     /** The email address for the envelope's signer. */
-  , signer_email: env.DS_SIGNER_1_EMAIL || ''
+  , signer_email: env.DS_SIGNER_EMAIL || '{USER_EMAIL}'
     /** The name of the envelope's signer. */
-  , signer_name: env.DS_SIGNER_1_NAME || ''
+  , signer_name: env.DS_SIGNER_NAME || '{USER_FULLNAME}'
     /** The email address for the envelope's cc recipient.
       * It can't be the same as the signer's email unless
       * the account is set to enable someone to be repeated in
       * the recipient list. */
-  , cc_email: env.DS_CC_1_EMAIL || ''
+  , cc_email: env.DS_CC_EMAIL || ''
     /** The name of the envelope's cc recipient. */
-  , cc_name: env.DS_CC_1_NAME || ''
+  , cc_name: env.DS_CC_NAME || ''
     /** The private key */
     /** Enter the key as a multiline string value. No leading spaces! */
   , private_key: env.DS_PRIVATE_KEY || ``

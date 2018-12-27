@@ -19,14 +19,14 @@ const
   ;
 
 /**
- * The worker function for the example. It is an async function.
+ * The worker function for the examples. It is an async function.
  * It calls async libraries <tt>DS_JWT_Auth</tt> and <tt>DS_Work</tt> and
  * handles their output.
- * @throws Exceptions raised by the DS_JWT_Auth and DS_Work libraries,
+ * @throws Exceptions raised by the DS_JWT_Auth library,
  * and various networking exceptions if there are networking problems.
  * @private
  */
-async function _main() {
+async function main() {
   const debug = true; // should debugging info be printed to console?
 
   // initialization
@@ -70,9 +70,9 @@ async function _main() {
  * <tt>DS_JWT_Auth</tt> and <tt>DS_Work libraries</tt>.
  * Other exceptions are re-thrown. Eg networking exceptions.
  */
-async function main() {
+async function executeMain() {
   try {
-    await _main();
+    await main();
   } catch (e) {
     let body = e.response && e.response.body;
     if (body) {
@@ -113,4 +113,4 @@ function log(m){console.log(m)}
 
 
 // the main line
-main();
+executeMain();

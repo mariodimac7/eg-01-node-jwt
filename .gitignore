@@ -1,4 +1,5 @@
 # Configuration files
+.idea/
 .env
 
 downloaded_documents/*
