@@ -3,9 +3,9 @@
 const chai = require('chai')
     , expect = chai.expect
     , should = chai.should()
-    , DS_JWT_Auth = require('../lib/DsJwtAuth.js')
-    , SendEnvelope = require('../lib/SendEnvelope')
-    , ListEnvelopes = require('../lib/ListEnvelopes')
+    , DS_JWT_Auth = require('../lib/dsJwtAuth.js')
+    , SendEnvelope = require('../lib/sendEnvelope')
+    , ListEnvelopes = require('../lib/listEnvelopes')
     , dsConfig = require('../dsConfig.js').config
     ;
 

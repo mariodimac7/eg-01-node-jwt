@@ -8,8 +8,8 @@
 
 'use strict';
 
-const sendEnvelope = require('./lib/SendEnvelope')
-    , listEnvelopes = require('./lib/ListEnvelopes')
+const sendEnvelope = require('./lib/sendEnvelope')
+    , listEnvelopes = require('./lib/listEnvelopes')
     , dsConfig = require('./dsConfig.js').config
   ;
 
@@ -40,9 +40,8 @@ async function main() {
     , results = await sendEnvelope.sendEnvelope(envelopeArgs);
   console.log (`Envelope status: ${results.status}. Envelope ID: ${results.envelopeId}`);
 
-  console.log ("\nList envelopes in the account...");
-  let listEnvelopes = new ListEnvelopes(dsJwtAuth);
-  results = await listEnvelopes.listEnvelopes1();
+  console.log ("\nListing envelopes in the account that have changed status in the last 30 days...");
+  results = await listEnvelopes.listEnvelopes();
   if (results.envelopes && results.envelopes.length > 2){
     console.log (`Results for ${results.envelopes.length} envelopes were returned. Showing the first two:`);
     results.envelopes.length = 2;
