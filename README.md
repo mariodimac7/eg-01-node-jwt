@@ -21,8 +21,8 @@ Two screencasts for this launcher and its examples are available:
 [![Create IK video][createIKvideoThumb]][createIKvideo]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Installation Video][installVideoThumb]][installVideo]
 
 
-[createIKvideo]:https://docusigninc.box.com/s/44jbleni0zi3ol4i0ujqjmcobwogly3m
-[installVideo]:https://docusigninc.box.com/s/hz90fje6e89spx2p9z0d9b19xxokrmmq
+[createIKvideo]:https://www.youtube.com/watch?v=55j4eZLK5Hg
+[installVideo]:https://www.youtube.com/watch?v=pqpj5j_oXU8
 [installVideoThumb]:https://raw.githubusercontent.com/docusign/eg-01-node-jwt/master/assets/Video_cover_Installing_JWT_Node_200.png
 [createIKvideoThumb]:https://raw.githubusercontent.com/docusign/eg-01-node-jwt/master/assets/Video_cover_creating_JWT_IK_200.png
 

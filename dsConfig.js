@@ -11,7 +11,7 @@ const env = process.env;
 exports.config = {
     /** The app's integration key. "Integration key" is a synonym for "client id.' */
     clientId: env.DS_CLIENT_ID || '{CLIENT_ID}'
-    /** The <tt>guid</tt> for the user who will be impersonated.
+    /** The guid for the user who will be impersonated.
      *  An email address can't be used.
      *  This is the user (or 'service account')
      *  that the JWT will represent. */
