@@ -27,12 +27,12 @@
   },
   "dependencies": {
     "docusign-esign": "^4.2.1",
-    "fs": "0.0.1-security",
+    "fs": "^0.0.1-security",
     "fs-extra": "^6.0.1",
     "moment": "^2.23.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "tmp": "0.0.33"
+    "tmp": "^0.0.33"
   },
   "devDependencies": {
     "chai": "^4.2.0",
