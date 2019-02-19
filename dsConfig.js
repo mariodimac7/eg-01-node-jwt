@@ -41,7 +41,7 @@ exports.config = {
    *  Default: false  */
   , targetAccountId: false
   // The authentication server. DO NOT INCLUDE https:// prefix!
-  , authServer: env.DS_AUTH_SERVER || 'https://account-d.docusign.com'
+  , authServer: env.DS_AUTH_SERVER || 'account-d.docusign.com'
     /** The same value must be set as a redirect URI in the
      *  DocuSign admin tool. This setting is <b>only</b> used for individually granting
      *  permission to the clientId if organizational-level permissions
