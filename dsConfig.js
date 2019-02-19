@@ -5,7 +5,6 @@
  * @author DocuSign
  */
 
-
 const env = process.env;
 
 exports.config = {
